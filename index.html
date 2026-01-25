@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr Francis Ngema | Medical Data Scientist</title>
+  <meta name="description" content="Medical Advisor & Data Scientist specializing in healthcare analytics, machine learning, and evidence-based medicine.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <style>
+    :root {
+      --bg-primary: #0a0f14;
+      --bg-secondary: #111920;
+      --bg-tertiary: #1a242d;
+      --text-primary: #f4f7fa;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-primary: #22d3ee;
+      --accent-secondary: #06b6d4;
+      --accent-warm: #f59e0b;
+      --accent-gradient: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
+      --border-subtle: rgba(148, 163, 184, 0.1);
+      --border-accent: rgba(34, 211, 238, 0.3);
+      --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --shadow-glow: 0 0 40px rgba(34, 211, 238, 0.15);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Selection styling */
+    ::selection {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-secondary);
+      border-radius: 4px;
+    }
+
+    /* Animation keyframes */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes lineExpand {
+      from { width: 0; }
+      to { width: 60px; }
+    }
+
+    /* Utility classes */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--accent-primary);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: all 0.4s var(--transition-smooth);
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-accent);
+    }
+
+    .btn-outline:hover {
+      background: rgba(34, 211, 238, 0.1);
+      border-color: var(--accent-primary);
+    }
+
+    /* Component styles will be added via React */
+    #root {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // ============ NAVIGATION COMPONENT ============
+    const Navigation = ({ activeSection }) => {
+      const [scrolled, setScrolled] = useState(false);
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+      useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 50);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const navItems = [
+        { id: 'home', label: 'Home' },
+        { id: 'about', label: 'About' },
+        { id: 'research', label: 'Research' },
+        { id: 'projects', label: 'Projects' },
+        { id: 'contact', label: 'Contact' }
+      ];
+
+      const navStyle = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        padding: scrolled ? '1rem 0' : '1.5rem 0',
+        background: scrolled ? 'rgba(10, 15, 20, 0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--border-subtle)' : 'none',
+        transition: 'all 0.4s var(--transition-smooth)'
+      };
+
+      const logoStyle = {
+        fontFamily: 'var(--font-display)',
+        fontSize: '1.5rem',
+        fontWeight: 600,
+        color: 'var(--text-primary)',
+        textDecoration: 'none',
+        letterSpacing: '-0.02em'
+      };
+
+      return (
+        <nav style={navStyle}>
+          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <a href="#home" style={logoStyle}>
+              FN<span style={{ color: 'var(--accent-primary)' }}>.</span>
+            </a>
+            
+            {/* Desktop Menu */}
+            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }} className="desktop-nav">
+              {navItems.map(item => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.875rem',
+                    fontWeight: 500,
+                    color: activeSection === item.id ? 'var(--accent-primary)' : 'var(--text-secondary)',
+                    textDecoration: 'none',
+                    letterSpacing: '0.05em',
+                    transition: 'color 0.3s',
+                    position: 'relative'
+                  }}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <span style={{
+                      position: 'absolute',
+                      bottom: '-8px',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '4px',
+                      height: '4px',
+                      borderRadius: '50%',
+                      background: 'var(--accent-primary)'
+                    }} />
+                  )}
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              style={{
+                display: 'none',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '0.5rem'
+              }}
+              className="mobile-menu-btn"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="2">
+                {mobileMenuOpen ? (
+                  <path d="M18 6L6 18M6 6l12 12" />
+                ) : (
+                  <path d="M3 12h18M3 6h18M3 18h18" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              background: 'rgba(10, 15, 20, 0.98)',
+              backdropFilter: 'blur(20px)',
+              padding: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem'
+            }} className="mobile-nav">
+              {navItems.map(item => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    fontSize: '1.25rem',
+                    color: activeSection === item.id ? 'var(--accent-primary)' : 'var(--text-primary)',
+                    textDecoration: 'none'
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </nav>
+      );
+    };
+
+    // ============ HERO SECTION ============
+    const HeroSection = () => {
+      const [loaded, setLoaded] = useState(false);
+
+      useEffect(() => {
+        setTimeout(() => setLoaded(true), 100);
+      }, []);
+
+      return (
+        <section id="home" style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Background Elements */}
+          <div style={{
+            position: 'absolute',
+            top: '20%',
+            right: '-10%',
+            width: '600px',
+            height: '600px',
+            background: 'radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(60px)',
+            animation: 'float 8s ease-in-out infinite'
+          }} />
+          <div style={{
+            position: 'absolute',
+            bottom: '10%',
+            left: '-5%',
+            width: '400px',
+            height: '400px',
+            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(40px)',
+            animation: 'float 6s ease-in-out infinite reverse'
+          }} />
+
+          <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{
+              maxWidth: '900px',
+              opacity: loaded ? 1 : 0,
+              transform: loaded ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'all 1s var(--transition-smooth)'
+            }}>
+              <div className="section-label" style={{
+                animationDelay: '0.2s',
+                animation: loaded ? 'slideInLeft 0.8s var(--transition-smooth) forwards' : 'none'
+              }}>
+                Medical Data Scientist
+              </div>
+
+              <h1 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                fontWeight: 500,
+                lineHeight: 1.05,
+                marginBottom: '2rem',
+                letterSpacing: '-0.03em'
+              }}>
+                Dr Francis<br />
+                <span className="gradient-text">Ngema</span>
+              </h1>
+
+              <p style={{
+                fontSize: '1.25rem',
+                color: 'var(--text-secondary)',
+                maxWidth: '600px',
+                marginBottom: '3rem',
+                lineHeight: 1.7,
+                opacity: loaded ? 1 : 0,
+                transition: 'opacity 1s var(--transition-smooth) 0.4s'
+              }}>
+                Bridging clinical medicine and advanced analytics to transform healthcare decisions. 
+                MBBCh & Master of Applied Data Science from University of Johannesburg.
+              </p>
+
+              <div style={{
+                display: 'flex',
+                gap: '1rem',
+                flexWrap: 'wrap',
+                opacity: loaded ? 1 : 0,
+                transition: 'opacity 1s var(--transition-smooth) 0.6s'
+              }}>
+                <a href="#research" className="btn btn-primary">
+                  View Research
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a href="#contact" className="btn btn-outline">Get in Touch</a>
+              </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div style={{
+              position: 'absolute',
+              bottom: '3rem',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.5rem',
+              opacity: loaded ? 0.6 : 0,
+              transition: 'opacity 1s var(--transition-smooth) 1s'
+            }}>
+              <span style={{
+                fontSize: '0.75rem',
+                letterSpacing: '0.2em',
+                color: 'var(--text-muted)'
+              }}>SCROLL</span>
+              <div style={{
+                width: '1px',
+                height: '40px',
+                background: 'linear-gradient(to bottom, var(--accent-primary), transparent)'
+              }} />
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // ============ ABOUT SECTION ============
+    const AboutSection = () => {
+      const stats = [
+        { value: 'MBBCh', label: 'Medical Degree' },
+        { value: 'MADS', label: 'Data Science' },
+        { value: '2025', label: 'Published Research' }
+      ];
+
+      const expertise = [
+        'Healthcare Analytics & ML',
+        'Clinical Decision Support',
+        'Evidence-Based Medicine',
+        'Health Technology Assessment',
+        'Cost Containment Strategy',
+        'Regulatory Compliance'
+      ];
+
+      return (
+        <section id="about" style={{
+          padding: '8rem 0',
+          background: 'var(--bg-secondary)',
+          position: 'relative'
+        }}>
+          <div className="container">
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+              gap: '4rem',
+              alignItems: 'start'
+            }}>
+              {/* Left Column */}
+              <div>
+                <div className="section-label">About</div>
+                <h2 className="section-title">
+                  Where Medicine<br />
+                  <span className="gradient-text">Meets Data</span>
+                </h2>
+                <p style={{
+                  color: 'var(--text-secondary)',
+                  fontSize: '1.1rem',
+                  lineHeight: 1.8,
+                  marginBottom: '2rem'
+                }}>
+                  As a Medical Advisor at GEMS, South Africa's largest medical scheme, I combine clinical expertise 
+                  with advanced data science to drive evidence-based healthcare decisions. My work spans clinical 
+                  reviews, cost containment strategies, and stakeholder engagement across multiple departments.
+                </p>
+                <p style={{
+                  color: 'var(--text-secondary)',
+                  fontSize: '1.1rem',
+                  lineHeight: 1.8
+                }}>
+                  My research published in JMIR AI demonstrates the application of explainable machine learning 
+                  techniques to predict HIV viral suppression, contributing to the intersection of healthcare 
+                  and artificial intelligence.
+                </p>
+
+                {/* Stats */}
+                <div style={{
+                  display: 'flex',
+                  gap: '3rem',
+                  marginTop: '3rem',
+                  paddingTop: '2rem',
+                  borderTop: '1px solid var(--border-subtle)'
+                }}>
+                  {stats.map((stat, i) => (
+                    <div key={i}>
+                      <div style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '2rem',
+                        fontWeight: 600,
+                        color: 'var(--accent-primary)',
+                        marginBottom: '0.25rem'
+                      }}>{stat.value}</div>
+                      <div style={{
+                        fontSize: '0.875rem',
+                        color: 'var(--text-muted)',
+                        letterSpacing: '0.05em'
+                      }}>{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column - Expertise */}
+              <div style={{
+                background: 'var(--bg-tertiary)',
+                padding: '3rem',
+                position: 'relative'
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '-1px',
+                  left: 0,
+                  width: '60px',
+                  height: '3px',
+                  background: 'var(--accent-gradient)'
+                }} />
+                
+                <h3 style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.75rem',
+                  marginBottom: '2rem',
+                  fontWeight: 500
+                }}>Core Expertise</h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {expertise.map((item, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        padding: '1rem',
+                        background: 'rgba(34, 211, 238, 0.05)',
+                        borderLeft: '2px solid var(--accent-primary)',
+                        transition: 'all 0.3s var(--transition-smooth)'
+                      }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span style={{ color: 'var(--text-primary)', fontSize: '0.95rem' }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Technical Skills */}
+                <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid var(--border-subtle)' }}>
+                  <h4 style={{
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.1em',
+                    color: 'var(--text-muted)',
+                    marginBottom: '1rem'
+                  }}>TECHNICAL STACK</h4>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    {['Python', 'R', 'SQL', 'Machine Learning', 'Explainable AI', 'Statistical Analysis'].map((skill, i) => (
+                      <span key={i} style={{
+                        padding: '0.5rem 1rem',
+                        background: 'rgba(34, 211, 238, 0.1)',
+                        border: '1px solid var(--border-accent)',
+                        fontSize: '0.8rem',
+                        color: 'var(--accent-primary)'
+                      }}>{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // ============ RESEARCH SECTION ============
+    const ResearchSection = () => {
+      const publications = [
+        {
+          title: 'Predicting HIV Viral Suppression Using Explainable AI Techniques',
+          journal: 'JMIR AI',
+          year: '2025',
+          description: 'Application of explainable machine learning models to predict HIV viral suppression outcomes, contributing to personalized treatment strategies and improved patient care.',
+          tags: ['Machine Learning', 'Healthcare AI', 'HIV Research', 'Explainable AI'],
+          link: '#'
+        }
+      ];
+
+      return (
+        <section id="research" style={{
+          padding: '8rem 0',
+          background: 'var(--bg-primary)',
+          position: 'relative'
+        }}>
+          <div className="container">
+            <div className="section-label">Research & Publications</div>
+            <h2 className="section-title">
+              Published<br />
+              <span className="gradient-text">Work</span>
+            </h2>
+
+            <div style={{ marginTop: '4rem' }}>
+              {publications.map((pub, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: 'var(--bg-secondary)',
+                    padding: '3rem',
+                    position: 'relative',
+                    marginBottom: '2rem',
+                    transition: 'all 0.4s var(--transition-smooth)'
+                  }}
+                >
+                  {/* Decorative element */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '3px',
+                    background: 'var(--accent-gradient)'
+                  }} />
+
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap',
+                    gap: '1rem',
+                    marginBottom: '1.5rem'
+                  }}>
+                    <div>
+                      <span style={{
+                        display: 'inline-block',
+                        padding: '0.25rem 0.75rem',
+                        background: 'rgba(245, 158, 11, 0.2)',
+                        color: 'var(--accent-warm)',
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.1em',
+                        marginBottom: '0.75rem'
+                      }}>PEER-REVIEWED</span>
+                      <h3 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.75rem',
+                        fontWeight: 500,
+                        lineHeight: 1.3
+                      }}>{pub.title}</h3>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>{pub.journal}</div>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>{pub.year}</div>
+                    </div>
+                  </div>
+
+                  <p style={{
+                    color: 'var(--text-secondary)',
+                    lineHeight: 1.7,
+                    marginBottom: '2rem',
+                    maxWidth: '800px'
+                  }}>{pub.description}</p>
+
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem',
+                    marginBottom: '1.5rem'
+                  }}>
+                    {pub.tags.map((tag, j) => (
+                      <span key={j} style={{
+                        padding: '0.4rem 0.8rem',
+                        background: 'rgba(34, 211, 238, 0.1)',
+                        border: '1px solid var(--border-accent)',
+                        fontSize: '0.75rem',
+                        color: 'var(--accent-primary)',
+                        letterSpacing: '0.05em'
+                      }}>{tag}</span>
+                    ))}
+                  </div>
+
+                  <a href={pub.link} className="btn btn-outline" style={{ marginTop: '1rem' }}>
+                    Read Publication
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // ============ PROJECTS SECTION ============
+    const ProjectsSection = () => {
+      const projects = [
+        {
+          title: 'Diabetes Risk Factor Clustering',
+          category: 'Healthcare Analytics',
+          description: 'Identified distinct population clusters based on health and demographic parameters to develop tailored interventions for diabetes management and prevention.',
+          image: 'data:image/svg+xml,' + encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+              <rect fill="#111920" width="600" height="400"/>
+              <g fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.3">
+                <circle cx="150" cy="200" r="80"/>
+                <circle cx="300" cy="180" r="60"/>
+                <circle cx="450" cy="220" r="90"/>
+                <circle cx="200" cy="300" r="50"/>
+                <circle cx="400" cy="120" r="70"/>
+              </g>
+              <g fill="#22d3ee" opacity="0.6">
+                <circle cx="150" cy="200" r="4"/>
+                <circle cx="165" cy="185" r="3"/>
+                <circle cx="140" cy="215" r="3"/>
+                <circle cx="300" cy="180" r="4"/>
+                <circle cx="315" cy="165" r="3"/>
+                <circle cx="450" cy="220" r="4"/>
+                <circle cx="435" cy="235" r="3"/>
+                <circle cx="200" cy="300" r="4"/>
+                <circle cx="400" cy="120" r="4"/>
+              </g>
+            </svg>
+          `),
+          tags: ['Hierarchical Clustering', 'R', 'Population Health'],
+          featured: true
+        },
+        {
+          title: 'Consumer Behaviour Analysis',
+          category: 'Machine Learning',
+          description: 'Applied Random Forest algorithms to understand and predict consumer purchasing patterns for certified rice products.',
+          image: 'data:image/svg+xml,' + encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+              <rect fill="#111920" width="600" height="400"/>
+              <g stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.4">
+                <line x1="100" y1="350" x2="100" y2="180"/>
+                <line x1="180" y1="350" x2="180" y2="120"/>
+                <line x1="260" y1="350" x2="260" y2="200"/>
+                <line x1="340" y1="350" x2="340" y2="80"/>
+                <line x1="420" y1="350" x2="420" y2="150"/>
+                <line x1="500" y1="350" x2="500" y2="100"/>
+              </g>
+              <g fill="#22d3ee">
+                <rect x="90" y="180" width="20" height="170" opacity="0.7"/>
+                <rect x="170" y="120" width="20" height="230" opacity="0.7"/>
+                <rect x="250" y="200" width="20" height="150" opacity="0.7"/>
+                <rect x="330" y="80" width="20" height="270" opacity="0.7"/>
+                <rect x="410" y="150" width="20" height="200" opacity="0.7"/>
+                <rect x="490" y="100" width="20" height="250" opacity="0.7"/>
+              </g>
+            </svg>
+          `),
+          tags: ['Random Forest', 'Python', 'Consumer Analytics'],
+          featured: false
+        },
+        {
+          title: 'Customer Segmentation',
+          category: 'Unsupervised Learning',
+          description: 'Implemented PCA and K-Means clustering techniques to segment customers for targeted marketing strategies.',
+          image: 'data:image/svg+xml,' + encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+              <rect fill="#111920" width="600" height="400"/>
+              <g fill="none" stroke-width="1.5">
+                <circle cx="180" cy="180" r="60" stroke="#f59e0b" opacity="0.5"/>
+                <circle cx="400" cy="150" r="70" stroke="#22d3ee" opacity="0.5"/>
+                <circle cx="300" cy="280" r="55" stroke="#06b6d4" opacity="0.5"/>
+              </g>
+              <g fill="#f59e0b" opacity="0.8">
+                <circle cx="160" cy="160" r="5"/>
+                <circle cx="190" cy="195" r="4"/>
+                <circle cx="175" cy="175" r="6"/>
+                <circle cx="200" cy="165" r="4"/>
+              </g>
+              <g fill="#22d3ee" opacity="0.8">
+                <circle cx="380" cy="140" r="5"/>
+                <circle cx="420" cy="160" r="6"/>
+                <circle cx="395" cy="135" r="4"/>
+                <circle cx="410" cy="170" r="5"/>
+              </g>
+              <g fill="#06b6d4" opacity="0.8">
+                <circle cx="290" cy="270" r="5"/>
+                <circle cx="315" cy="290" r="4"/>
+                <circle cx="305" cy="265" r="6"/>
+                <circle cx="280" cy="295" r="4"/>
+              </g>
+            </svg>
+          `),
+          tags: ['PCA', 'K-Means', 'Python'],
+          featured: false
+        }
+      ];
+
+      return (
+        <section id="projects" style={{
+          padding: '8rem 0',
+          background: 'var(--bg-secondary)',
+          position: 'relative'
+        }}>
+          <div className="container">
+            <div className="section-label">Portfolio</div>
+            <h2 className="section-title">
+              Featured<br />
+              <span className="gradient-text">Projects</span>
+            </h2>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+              gap: '2rem',
+              marginTop: '4rem'
+            }}>
+              {projects.map((project, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: 'var(--bg-primary)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transition: 'all 0.4s var(--transition-smooth)',
+                    cursor: 'pointer'
+                  }}
+                  className="project-card"
+                >
+                  {/* Project Image */}
+                  <div style={{
+                    height: '200px',
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s var(--transition-smooth)'
+                      }}
+                    />
+                    {project.featured && (
+                      <div style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        padding: '0.25rem 0.75rem',
+                        background: 'var(--accent-warm)',
+                        color: 'var(--bg-primary)',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em'
+                      }}>FEATURED</div>
+                    )}
+                  </div>
+
+                  {/* Project Content */}
+                  <div style={{ padding: '2rem' }}>
+                    <div style={{
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.1em',
+                      color: 'var(--accent-primary)',
+                      marginBottom: '0.75rem'
+                    }}>{project.category.toUpperCase()}</div>
+
+                    <h3 style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '1.5rem',
+                      fontWeight: 500,
+                      marginBottom: '1rem',
+                      lineHeight: 1.3
+                    }}>{project.title}</h3>
+
+                    <p style={{
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.95rem',
+                      lineHeight: 1.6,
+                      marginBottom: '1.5rem'
+                    }}>{project.description}</p>
+
+                    <div style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '0.5rem'
+                    }}>
+                      {project.tags.map((tag, j) => (
+                        <span key={j} style={{
+                          padding: '0.3rem 0.6rem',
+                          background: 'rgba(34, 211, 238, 0.1)',
+                          fontSize: '0.7rem',
+                          color: 'var(--text-muted)',
+                          letterSpacing: '0.05em'
+                        }}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Hover Overlay */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '3px',
+                    background: 'var(--accent-gradient)',
+                    transform: 'scaleX(0)',
+                    transformOrigin: 'left',
+                    transition: 'transform 0.4s var(--transition-smooth)'
+                  }} className="hover-line" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <style>{`
+            .project-card:hover {
+              transform: translateY(-8px);
+              box-shadow: var(--shadow-glow);
+            }
+            .project-card:hover img {
+              transform: scale(1.05);
+            }
+            .project-card:hover .hover-line {
+              transform: scaleX(1) !important;
+            }
+          `}</style>
+        </section>
+      );
+    };
+
+    // ============ CONTACT SECTION ============
+    const ContactSection = () => {
+      return (
+        <section id="contact" style={{
+          padding: '8rem 0',
+          background: 'var(--bg-primary)',
+          position: 'relative'
+        }}>
+          <div className="container">
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+              gap: '4rem',
+              alignItems: 'center'
+            }}>
+              <div>
+                <div className="section-label">Get in Touch</div>
+                <h2 className="section-title">
+                  Let's<br />
+                  <span className="gradient-text">Connect</span>
+                </h2>
+                <p style={{
+                  color: 'var(--text-secondary)',
+                  fontSize: '1.1rem',
+                  lineHeight: 1.8,
+                  marginBottom: '2rem',
+                  maxWidth: '500px'
+                }}>
+                  Whether you're interested in healthcare analytics collaboration, research opportunities, 
+                  or just want to discuss the intersection of medicine and data science, I'd love to hear from you.
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  <a
+                    href="mailto:contact@francisngema.com"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      color: 'var(--text-primary)',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s'
+                    }}
+                  >
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(34, 211, 238, 0.1)',
+                      border: '1px solid var(--border-accent)'
+                    }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>EMAIL</div>
+                      <div>contact@francisngema.com</div>
+                    </div>
+                  </a>
+
+                  <a
+                    href="https://linkedin.com/in/francisngema"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      color: 'var(--text-primary)',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s'
+                    }}
+                  >
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(34, 211, 238, 0.1)',
+                      border: '1px solid var(--border-accent)'
+                    }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect x="2" y="9" width="4" height="12"/>
+                        <circle cx="4" cy="4" r="2"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>LINKEDIN</div>
+                      <div>linkedin.com/in/francisngema</div>
+                    </div>
+                  </a>
+
+                  <a
+                    href="https://github.com/francisngema"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      color: 'var(--text-primary)',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s'
+                    }}
+                  >
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(34, 211, 238, 0.1)',
+                      border: '1px solid var(--border-accent)'
+                    }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>GITHUB</div>
+                      <div>github.com/francisngema</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              {/* Decorative Card */}
+              <div style={{
+                background: 'var(--bg-secondary)',
+                padding: '3rem',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '-50%',
+                  right: '-50%',
+                  width: '100%',
+                  height: '100%',
+                  background: 'radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 60%)',
+                  transform: 'rotate(-45deg)'
+                }} />
+                
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <div style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1.5rem',
+                    fontWeight: 500,
+                    marginBottom: '1.5rem'
+                  }}>Current Focus</div>
+                  
+                  <p style={{
+                    color: 'var(--text-secondary)',
+                    lineHeight: 1.7,
+                    marginBottom: '2rem'
+                  }}>
+                    Working on healthcare cost containment strategies, clinical appropriateness reviews, 
+                    and developing ML-powered analytics dashboards at GEMS.
+                  </p>
+
+                  <div style={{
+                    padding: '1.5rem',
+                    background: 'rgba(34, 211, 238, 0.1)',
+                    borderLeft: '3px solid var(--accent-primary)'
+                  }}>
+                    <div style={{
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.1em',
+                      color: 'var(--accent-primary)',
+                      marginBottom: '0.5rem'
+                    }}>CURRENT ROLE</div>
+                    <div style={{ fontWeight: 500 }}>Medical Advisor</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                      GEMS - Government Employees Medical Scheme
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // ============ FOOTER ============
+    const Footer = () => {
+      return (
+        <footer style={{
+          padding: '3rem 0',
+          background: 'var(--bg-secondary)',
+          borderTop: '1px solid var(--border-subtle)'
+        }}>
+          <div className="container" style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1rem'
+          }}>
+            <div style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.25rem',
+              fontWeight: 600
+            }}>
+              FN<span style={{ color: 'var(--accent-primary)' }}>.</span>
+            </div>
+            <div style={{
+              color: 'var(--text-muted)',
+              fontSize: '0.875rem'
+            }}>
+              © 2026 Dr Francis Ngema. All rights reserved.
+            </div>
+          </div>
+        </footer>
+      );
+    };
+
+    // ============ MAIN APP ============
+    const App = () => {
+      const [activeSection, setActiveSection] = useState('home');
+
+      useEffect(() => {
+        const handleScroll = () => {
+          const sections = ['home', 'about', 'research', 'projects', 'contact'];
+          const scrollPos = window.scrollY + 200;
+
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const offsetTop = element.offsetTop;
+              const offsetHeight = element.offsetHeight;
+              if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
+                setActiveSection(section);
+                break;
+              }
+            }
+          }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      return (
+        <>
+          <Navigation activeSection={activeSection} />
+          <HeroSection />
+          <AboutSection />
+          <ResearchSection />
+          <ProjectsSection />
+          <ContactSection />
+          <Footer />
+
+          {/* Global responsive styles */}
+          <style>{`
+            @media (max-width: 768px) {
+              .desktop-nav {
+                display: none !important;
+              }
+              .mobile-menu-btn {
+                display: block !important;
+              }
+              .container {
+                padding: 0 1.5rem;
+              }
+              .section-title {
+                font-size: 2.5rem !important;
+              }
+            }
+            @media (min-width: 769px) {
+              .mobile-nav {
+                display: none !important;
+              }
+            }
+          `}</style>
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
