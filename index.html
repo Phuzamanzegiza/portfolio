@@ -4,36 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dr Francis Ngema | Medical Data Scientist</title>
-  <meta name="description" content="Medical Advisor & Data Scientist specializing in healthcare analytics, machine learning, and evidence-based medicine.">
-  
+  <meta name="description" content="Medical Doctor & Data Scientist specializing in healthcare analytics, machine learning, explainable AI, and evidence-based medicine. Founder of Research 100.">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
+
   <style>
     :root {
-      --bg-primary: #0a0f14;
-      --bg-secondary: #111920;
-      --bg-tertiary: #1a242d;
-      --text-primary: #f4f7fa;
+      --bg-primary: #030712;
+      --bg-secondary: #0f172a;
+      --bg-tertiary: #1e293b;
+      --bg-card: rgba(15, 23, 42, 0.8);
+      --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --accent-primary: #22d3ee;
-      --accent-secondary: #06b6d4;
-      --accent-warm: #f59e0b;
-      --accent-gradient: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
+      --accent-primary: #06b6d4;
+      --accent-secondary: #22d3ee;
+      --accent-tertiary: #67e8f9;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --accent-orange: #f59e0b;
+      --accent-pink: #ec4899;
       --border-subtle: rgba(148, 163, 184, 0.1);
-      --border-accent: rgba(34, 211, 238, 0.3);
-      --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
-      --shadow-glow: 0 0 40px rgba(34, 211, 238, 0.15);
-      --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --border-accent: rgba(6, 182, 212, 0.3);
+      --glow-cyan: 0 0 60px rgba(6, 182, 212, 0.3);
+      --glow-purple: 0 0 60px rgba(139, 92, 246, 0.2);
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     *, *::before, *::after {
@@ -55,29 +58,83 @@
       overflow-x: hidden;
     }
 
-    /* Subtle grain texture overlay */
-    body::before {
-      content: '';
+    /* Animated gradient background */
+    .gradient-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.03;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 0;
+      overflow: hidden;
     }
 
-    /* Selection styling */
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .gradient-orb-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%);
+      top: -200px;
+      right: -200px;
+      animation-delay: 0s;
+    }
+
+    .gradient-orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+      bottom: -150px;
+      left: -150px;
+      animation-delay: -5s;
+    }
+
+    .gradient-orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(50px, -50px) scale(1.1); }
+      50% { transform: translate(-30px, 30px) scale(0.95); }
+      75% { transform: translate(40px, 40px) scale(1.05); }
+    }
+
+    /* Grid pattern overlay */
+    .grid-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     ::selection {
       background: var(--accent-primary);
       color: var(--bg-primary);
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
 
     ::-webkit-scrollbar-track {
@@ -85,15 +142,15 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--accent-secondary);
-      border-radius: 4px;
+      background: var(--accent-primary);
+      border-radius: 3px;
     }
 
-    /* Animation keyframes */
+    /* Animations */
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
@@ -109,7 +166,7 @@
     @keyframes slideInLeft {
       from {
         opacity: 0;
-        transform: translateX(-40px);
+        transform: translateX(-60px);
       }
       to {
         opacity: 1;
@@ -117,25 +174,60 @@
       }
     }
 
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @keyframes lineExpand {
+    @keyframes typewriter {
       from { width: 0; }
-      to { width: 60px; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      0%, 50% { border-color: var(--accent-primary); }
+      51%, 100% { border-color: transparent; }
+    }
+
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes skillBarFill {
+      from { width: 0; }
+    }
+
+    @keyframes borderGlow {
+      0%, 100% { box-shadow: 0 0 5px var(--accent-primary), inset 0 0 5px transparent; }
+      50% { box-shadow: 0 0 20px var(--accent-primary), inset 0 0 10px rgba(6, 182, 212, 0.1); }
     }
 
     /* Utility classes */
@@ -143,39 +235,38 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 2rem;
+      position: relative;
+      z-index: 10;
     }
 
     .section-label {
       font-family: var(--font-body);
       font-size: 0.75rem;
       font-weight: 600;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--accent-primary);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-label::before {
-      content: '';
-      width: 40px;
-      height: 1px;
-      background: var(--accent-primary);
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid var(--border-accent);
+      border-radius: 50px;
     }
 
     .section-title {
       font-family: var(--font-display);
       font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.1;
       margin-bottom: 1.5rem;
       letter-spacing: -0.02em;
     }
 
     .gradient-text {
-      background: var(--accent-gradient);
+      background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 50%, var(--accent-purple) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -184,65 +275,294 @@
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
       padding: 1rem 2rem;
       font-family: var(--font-body);
       font-size: 0.875rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
       text-decoration: none;
       border: none;
-      border-radius: 0;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.4s var(--transition-smooth);
-    }
-
-    .btn-primary {
-      background: var(--accent-gradient);
-      color: var(--bg-primary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
     }
 
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      color: var(--bg-primary);
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
     }
 
-    .btn-primary:hover::before {
-      left: 100%;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
     }
 
     .btn-outline {
       background: transparent;
       color: var(--text-primary);
       border: 1px solid var(--border-accent);
+      backdrop-filter: blur(10px);
     }
 
     .btn-outline:hover {
-      background: rgba(34, 211, 238, 0.1);
+      background: rgba(6, 182, 212, 0.1);
       border-color: var(--accent-primary);
+      box-shadow: var(--glow-cyan);
     }
 
-    /* Component styles will be added via React */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--glow-cyan);
+      transform: translateY(-4px);
+    }
+
     #root {
       min-height: 100vh;
+      position: relative;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
+  <!-- Animated background -->
+  <div class="gradient-bg">
+    <div class="gradient-orb gradient-orb-1"></div>
+    <div class="gradient-orb gradient-orb-2"></div>
+    <div class="gradient-orb gradient-orb-3"></div>
+  </div>
+  <div class="grid-pattern"></div>
+
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
+    const { useState, useEffect, useRef, useCallback } = React;
 
-    // ============ NAVIGATION COMPONENT ============
+    // ============ INTERSECTION OBSERVER HOOK ============
+    const useInView = (options = {}) => {
+      const ref = useRef(null);
+      const [isInView, setIsInView] = useState(false);
+
+      useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            if (options.once !== false) {
+              observer.disconnect();
+            }
+          } else if (options.once === false) {
+            setIsInView(false);
+          }
+        }, { threshold: options.threshold || 0.1, ...options });
+
+        if (ref.current) {
+          observer.observe(ref.current);
+        }
+
+        return () => observer.disconnect();
+      }, []);
+
+      return [ref, isInView];
+    };
+
+    // ============ ANIMATED COUNTER ============
+    const AnimatedCounter = ({ end, suffix = '', duration = 2000 }) => {
+      const [count, setCount] = useState(0);
+      const [ref, isInView] = useInView();
+
+      useEffect(() => {
+        if (!isInView) return;
+
+        let startTime;
+        const animate = (currentTime) => {
+          if (!startTime) startTime = currentTime;
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          setCount(Math.floor(progress * end));
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        };
+        requestAnimationFrame(animate);
+      }, [isInView, end, duration]);
+
+      return <span ref={ref}>{count}{suffix}</span>;
+    };
+
+    // ============ SKILL BAR ============
+    const SkillBar = ({ skill, level, color, delay = 0 }) => {
+      const [ref, isInView] = useInView();
+
+      return (
+        <div ref={ref} style={{ marginBottom: '1.5rem' }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '0.5rem',
+            fontSize: '0.875rem'
+          }}>
+            <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{skill}</span>
+            <span style={{ color: 'var(--text-muted)' }}>{level}+ years</span>
+          </div>
+          <div style={{
+            height: '6px',
+            background: 'rgba(148, 163, 184, 0.1)',
+            borderRadius: '3px',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              height: '100%',
+              width: isInView ? `${Math.min(level * 10, 100)}%` : '0%',
+              background: `linear-gradient(90deg, ${color}, ${color}dd)`,
+              borderRadius: '3px',
+              transition: `width 1.5s cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
+              boxShadow: `0 0 10px ${color}50`
+            }} />
+          </div>
+        </div>
+      );
+    };
+
+    // ============ TYPING EFFECT ============
+    const TypingText = ({ texts, typingSpeed = 100, deletingSpeed = 50, pauseTime = 2000 }) => {
+      const [displayText, setDisplayText] = useState('');
+      const [textIndex, setTextIndex] = useState(0);
+      const [isDeleting, setIsDeleting] = useState(false);
+
+      useEffect(() => {
+        const currentText = texts[textIndex];
+
+        const timeout = setTimeout(() => {
+          if (!isDeleting) {
+            if (displayText.length < currentText.length) {
+              setDisplayText(currentText.slice(0, displayText.length + 1));
+            } else {
+              setTimeout(() => setIsDeleting(true), pauseTime);
+            }
+          } else {
+            if (displayText.length > 0) {
+              setDisplayText(displayText.slice(0, -1));
+            } else {
+              setIsDeleting(false);
+              setTextIndex((prev) => (prev + 1) % texts.length);
+            }
+          }
+        }, isDeleting ? deletingSpeed : typingSpeed);
+
+        return () => clearTimeout(timeout);
+      }, [displayText, isDeleting, textIndex, texts]);
+
+      return (
+        <span style={{
+          borderRight: '2px solid var(--accent-primary)',
+          paddingRight: '4px',
+          animation: 'blink 1s step-end infinite'
+        }}>
+          {displayText}
+        </span>
+      );
+    };
+
+    // ============ PARTICLE BACKGROUND ============
+    const ParticleField = () => {
+      const canvasRef = useRef(null);
+
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        let animationId;
+        let particles = [];
+
+        const resize = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+
+        const createParticle = () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.5,
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+          opacity: Math.random() * 0.5 + 0.2
+        });
+
+        const init = () => {
+          resize();
+          particles = Array.from({ length: 50 }, createParticle);
+        };
+
+        const animate = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          particles.forEach((p, i) => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
+            ctx.fill();
+
+            // Draw connections
+            particles.slice(i + 1).forEach(p2 => {
+              const dx = p.x - p2.x;
+              const dy = p.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+
+              if (dist < 150) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = `rgba(6, 182, 212, ${0.1 * (1 - dist / 150)})`;
+                ctx.stroke();
+              }
+            });
+          });
+
+          animationId = requestAnimationFrame(animate);
+        };
+
+        init();
+        animate();
+        window.addEventListener('resize', init);
+
+        return () => {
+          cancelAnimationFrame(animationId);
+          window.removeEventListener('resize', init);
+        };
+      }, []);
+
+      return (
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: 1
+          }}
+        />
+      );
+    };
+
+    // ============ NAVIGATION ============
     const Navigation = ({ activeSection }) => {
       const [scrolled, setScrolled] = useState(false);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -256,109 +576,114 @@
       const navItems = [
         { id: 'home', label: 'Home' },
         { id: 'about', label: 'About' },
+        { id: 'experience', label: 'Experience' },
         { id: 'research', label: 'Research' },
-        { id: 'projects', label: 'Projects' },
+        { id: 'skills', label: 'Skills' },
         { id: 'contact', label: 'Contact' }
       ];
 
-      const navStyle = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        padding: scrolled ? '1rem 0' : '1.5rem 0',
-        background: scrolled ? 'rgba(10, 15, 20, 0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border-subtle)' : 'none',
-        transition: 'all 0.4s var(--transition-smooth)'
-      };
-
-      const logoStyle = {
-        fontFamily: 'var(--font-display)',
-        fontSize: '1.5rem',
-        fontWeight: 600,
-        color: 'var(--text-primary)',
-        textDecoration: 'none',
-        letterSpacing: '-0.02em'
-      };
-
       return (
-        <nav style={navStyle}>
+        <nav style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          padding: scrolled ? '0.75rem 0' : '1.25rem 0',
+          background: scrolled ? 'rgba(3, 7, 18, 0.9)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--border-subtle)' : 'none',
+          transition: 'all 0.3s ease'
+        }}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <a href="#home" style={logoStyle}>
-              FN<span style={{ color: 'var(--accent-primary)' }}>.</span>
+            <a href="#home" style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.5rem',
+              fontWeight: 700,
+              color: 'var(--text-primary)',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <span style={{
+                width: '40px',
+                height: '40px',
+                background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-purple))',
+                borderRadius: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.25rem',
+                fontWeight: 700
+              }}>FN</span>
             </a>
-            
-            {/* Desktop Menu */}
-            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }} className="desktop-nav">
+
+            <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }} className="desktop-nav">
               {navItems.map(item => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
                   style={{
-                    fontFamily: 'var(--font-body)',
                     fontSize: '0.875rem',
                     fontWeight: 500,
                     color: activeSection === item.id ? 'var(--accent-primary)' : 'var(--text-secondary)',
                     textDecoration: 'none',
-                    letterSpacing: '0.05em',
                     transition: 'color 0.3s',
-                    position: 'relative'
+                    position: 'relative',
+                    padding: '0.5rem 0'
                   }}
                 >
                   {item.label}
                   {activeSection === item.id && (
                     <span style={{
                       position: 'absolute',
-                      bottom: '-8px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      width: '4px',
-                      height: '4px',
-                      borderRadius: '50%',
-                      background: 'var(--accent-primary)'
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: '2px',
+                      background: 'var(--accent-primary)',
+                      borderRadius: '1px'
                     }} />
                   )}
                 </a>
               ))}
+              <a href="/Francis_Ngema_CV_March_2025.pdf" target="_blank" className="btn btn-primary" style={{ padding: '0.75rem 1.5rem' }}>
+                Download CV
+              </a>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="mobile-menu-btn"
               style={{
                 display: 'none',
                 background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '0.5rem'
+                border: '1px solid var(--border-accent)',
+                borderRadius: '8px',
+                padding: '0.5rem',
+                cursor: 'pointer'
               }}
-              className="mobile-menu-btn"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="2">
-                {mobileMenuOpen ? (
-                  <path d="M18 6L6 18M6 6l12 12" />
-                ) : (
-                  <path d="M3 12h18M3 6h18M3 18h18" />
-                )}
+                {mobileMenuOpen ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M3 12h18M3 6h18M3 18h18" />}
               </svg>
             </button>
           </div>
 
-          {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div style={{
               position: 'absolute',
               top: '100%',
               left: 0,
               right: 0,
-              background: 'rgba(10, 15, 20, 0.98)',
+              background: 'rgba(3, 7, 18, 0.98)',
               backdropFilter: 'blur(20px)',
               padding: '2rem',
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.5rem'
+              gap: '1.5rem',
+              borderBottom: '1px solid var(--border-subtle)'
             }} className="mobile-nav">
               {navItems.map(item => (
                 <a
@@ -383,6 +708,7 @@
     // ============ HERO SECTION ============
     const HeroSection = () => {
       const [loaded, setLoaded] = useState(false);
+      const roles = ['Data Scientist', 'Medical Doctor', 'ML Engineer', 'Healthcare Innovator', 'Researcher'];
 
       useEffect(() => {
         setTimeout(() => setLoaded(true), 100);
@@ -394,110 +720,218 @@
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
-          overflow: 'hidden'
+          paddingTop: '80px'
         }}>
-          {/* Background Elements */}
-          <div style={{
-            position: 'absolute',
-            top: '20%',
-            right: '-10%',
-            width: '600px',
-            height: '600px',
-            background: 'radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(60px)',
-            animation: 'float 8s ease-in-out infinite'
-          }} />
-          <div style={{
-            position: 'absolute',
-            bottom: '10%',
-            left: '-5%',
-            width: '400px',
-            height: '400px',
-            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(40px)',
-            animation: 'float 6s ease-in-out infinite reverse'
-          }} />
-
-          <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <div className="container">
             <div style={{
-              maxWidth: '900px',
-              opacity: loaded ? 1 : 0,
-              transform: loaded ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'all 1s var(--transition-smooth)'
-            }}>
-              <div className="section-label" style={{
-                animationDelay: '0.2s',
-                animation: loaded ? 'slideInLeft 0.8s var(--transition-smooth) forwards' : 'none'
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '4rem',
+              alignItems: 'center'
+            }} className="hero-grid">
+              <div style={{
+                opacity: loaded ? 1 : 0,
+                transform: loaded ? 'translateY(0)' : 'translateY(40px)',
+                transition: 'all 1s cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
-                Medical Data Scientist
+                <div className="section-label" style={{ marginBottom: '1.5rem' }}>
+                  <span style={{
+                    width: '8px',
+                    height: '8px',
+                    background: 'var(--accent-green)',
+                    borderRadius: '50%',
+                    animation: 'pulse 2s infinite'
+                  }} />
+                  Available for opportunities
+                </div>
+
+                <h1 style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                  fontWeight: 700,
+                  lineHeight: 1.1,
+                  marginBottom: '1.5rem'
+                }}>
+                  Dr Francis<br />
+                  <span className="gradient-text">Ngema</span>
+                </h1>
+
+                <div style={{
+                  fontSize: '1.5rem',
+                  color: 'var(--text-secondary)',
+                  marginBottom: '1.5rem',
+                  minHeight: '2.5rem'
+                }}>
+                  <TypingText texts={roles} />
+                </div>
+
+                <p style={{
+                  fontSize: '1.125rem',
+                  color: 'var(--text-secondary)',
+                  maxWidth: '500px',
+                  marginBottom: '2rem',
+                  lineHeight: 1.7
+                }}>
+                  Bridging clinical medicine and AI to transform healthcare.
+                  Founder of <span style={{ color: 'var(--accent-primary)' }}>Research 100</span>,
+                  published researcher in JMIR AI & Frontiers, and UCSF-trained scientist.
+                </p>
+
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+                  <a href="#contact" className="btn btn-primary">
+                    Get in Touch
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                  <a href="#research" className="btn btn-outline">View Research</a>
+                </div>
+
+                {/* Quick Stats */}
+                <div style={{
+                  display: 'flex',
+                  gap: '2rem',
+                  paddingTop: '2rem',
+                  borderTop: '1px solid var(--border-subtle)'
+                }}>
+                  {[
+                    { value: 15, suffix: '+', label: 'Years Experience' },
+                    { value: 3, suffix: '', label: 'Publications' },
+                    { value: 10, suffix: '+', label: 'Years Clinical' }
+                  ].map((stat, i) => (
+                    <div key={i}>
+                      <div style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '2rem',
+                        fontWeight: 700,
+                        color: 'var(--accent-primary)'
+                      }}>
+                        <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                      </div>
+                      <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <h1 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(3rem, 8vw, 6rem)',
-                fontWeight: 500,
-                lineHeight: 1.05,
-                marginBottom: '2rem',
-                letterSpacing: '-0.03em'
-              }}>
-                Dr Francis<br />
-                <span className="gradient-text">Ngema</span>
-              </h1>
-
-              <p style={{
-                fontSize: '1.25rem',
-                color: 'var(--text-secondary)',
-                maxWidth: '600px',
-                marginBottom: '3rem',
-                lineHeight: 1.7,
-                opacity: loaded ? 1 : 0,
-                transition: 'opacity 1s var(--transition-smooth) 0.4s'
-              }}>
-                Bridging clinical medicine and advanced analytics to transform healthcare decisions. 
-                MBBCh & Master of Applied Data Science from University of Johannesburg.
-              </p>
-
+              {/* Hero Visual */}
               <div style={{
-                display: 'flex',
-                gap: '1rem',
-                flexWrap: 'wrap',
+                position: 'relative',
                 opacity: loaded ? 1 : 0,
-                transition: 'opacity 1s var(--transition-smooth) 0.6s'
-              }}>
-                <a href="#research" className="btn btn-primary">
-                  View Research
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-                <a href="#contact" className="btn btn-outline">Get in Touch</a>
+                transform: loaded ? 'translateX(0)' : 'translateX(60px)',
+                transition: 'all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s'
+              }} className="hero-visual">
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '1',
+                  background: 'linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary))',
+                  borderRadius: '24px',
+                  border: '1px solid var(--border-subtle)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                  {/* Decorative elements */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '10%',
+                    right: '10%',
+                    width: '60%',
+                    height: '60%',
+                    background: 'radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%)',
+                    borderRadius: '50%'
+                  }} />
+
+                  {/* Code-like decoration */}
+                  <div style={{
+                    fontFamily: 'monospace',
+                    fontSize: '0.75rem',
+                    color: 'var(--text-muted)',
+                    textAlign: 'left',
+                    padding: '2rem'
+                  }}>
+                    <div style={{ color: 'var(--accent-purple)' }}>{"// Healthcare + AI"}</div>
+                    <div><span style={{ color: 'var(--accent-orange)' }}>const</span> doctor = {'{'}</div>
+                    <div style={{ paddingLeft: '1rem' }}>
+                      <span style={{ color: 'var(--accent-primary)' }}>degree</span>: <span style={{ color: 'var(--accent-green)' }}>"MBBCh"</span>,
+                    </div>
+                    <div style={{ paddingLeft: '1rem' }}>
+                      <span style={{ color: 'var(--accent-primary)' }}>masters</span>: <span style={{ color: 'var(--accent-green)' }}>"MADS"</span>,
+                    </div>
+                    <div style={{ paddingLeft: '1rem' }}>
+                      <span style={{ color: 'var(--accent-primary)' }}>skills</span>: [
+                    </div>
+                    <div style={{ paddingLeft: '2rem', color: 'var(--accent-green)' }}>"Python", "R", "ML",</div>
+                    <div style={{ paddingLeft: '2rem', color: 'var(--accent-green)' }}>"XAI", "Healthcare"</div>
+                    <div style={{ paddingLeft: '1rem' }}>],</div>
+                    <div style={{ paddingLeft: '1rem' }}>
+                      <span style={{ color: 'var(--accent-primary)' }}>passion</span>: <span style={{ color: 'var(--accent-green)' }}>"Saving lives"</span>
+                    </div>
+                    <div>{'}'}</div>
+                  </div>
+                </div>
+
+                {/* Floating badges */}
+                {[
+                  { icon: '🎓', label: 'UCSF Trained', top: '-20px', right: '10%' },
+                  { icon: '📊', label: 'Published Author', bottom: '20%', left: '-30px' },
+                  { icon: '🏥', label: 'HPCSA Licensed', bottom: '-20px', right: '20%' }
+                ].map((badge, i) => (
+                  <div key={i} style={{
+                    position: 'absolute',
+                    ...badge,
+                    background: 'var(--bg-card)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid var(--border-accent)',
+                    borderRadius: '12px',
+                    padding: '0.75rem 1rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    fontSize: '0.875rem',
+                    animation: `float ${3 + i}s ease-in-out infinite`,
+                    animationDelay: `${i * 0.5}s`
+                  }}>
+                    <span>{badge.icon}</span>
+                    <span style={{ fontWeight: 500 }}>{badge.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* Scroll Indicator */}
+          {/* Scroll indicator */}
+          <div style={{
+            position: 'absolute',
+            bottom: '2rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '0.5rem',
+            opacity: 0.6
+          }}>
+            <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--text-muted)' }}>SCROLL</span>
             <div style={{
-              position: 'absolute',
-              bottom: '3rem',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.5rem',
-              opacity: loaded ? 0.6 : 0,
-              transition: 'opacity 1s var(--transition-smooth) 1s'
+              width: '24px',
+              height: '40px',
+              border: '2px solid var(--text-muted)',
+              borderRadius: '12px',
+              position: 'relative'
             }}>
-              <span style={{
-                fontSize: '0.75rem',
-                letterSpacing: '0.2em',
-                color: 'var(--text-muted)'
-              }}>SCROLL</span>
               <div style={{
-                width: '1px',
-                height: '40px',
-                background: 'linear-gradient(to bottom, var(--accent-primary), transparent)'
+                position: 'absolute',
+                top: '8px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '4px',
+                height: '8px',
+                background: 'var(--accent-primary)',
+                borderRadius: '2px',
+                animation: 'float 2s ease-in-out infinite'
               }} />
             </div>
           </div>
@@ -507,154 +941,248 @@
 
     // ============ ABOUT SECTION ============
     const AboutSection = () => {
-      const stats = [
-        { value: 'MBBCh', label: 'Medical Degree' },
-        { value: 'MADS', label: 'Data Science' },
-        { value: '2025', label: 'Published Research' }
-      ];
+      const [ref, isInView] = useInView();
 
-      const expertise = [
-        'Healthcare Analytics & ML',
-        'Clinical Decision Support',
-        'Evidence-Based Medicine',
-        'Health Technology Assessment',
-        'Cost Containment Strategy',
-        'Regulatory Compliance'
+      const highlights = [
+        { icon: '🔬', title: 'Research 100', desc: 'Founded healthcare research startup leveraging ML for clinical insights' },
+        { icon: '📚', title: 'Published Researcher', desc: 'JMIR AI, Frontiers in Research Metrics & Analytics' },
+        { icon: '🎓', title: 'UCSF ITAPS', desc: 'International Traineeship in AIDS Prevention Studies' },
+        { icon: '🏆', title: 'Peer Reviewer', desc: 'Digital Health (Sage), Translational Cancer Research' }
       ];
 
       return (
-        <section id="about" style={{
+        <section id="about" ref={ref} style={{
           padding: '8rem 0',
-          background: 'var(--bg-secondary)',
           position: 'relative'
         }}>
           <div className="container">
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
               gap: '4rem',
               alignItems: 'start'
             }}>
-              {/* Left Column */}
-              <div>
-                <div className="section-label">About</div>
+              <div style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? 'translateX(0)' : 'translateX(-40px)',
+                transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}>
+                <div className="section-label">About Me</div>
                 <h2 className="section-title">
                   Where Medicine<br />
-                  <span className="gradient-text">Meets Data</span>
+                  <span className="gradient-text">Meets AI</span>
                 </h2>
-                <p style={{
-                  color: 'var(--text-secondary)',
-                  fontSize: '1.1rem',
-                  lineHeight: 1.8,
-                  marginBottom: '2rem'
-                }}>
-                  As a Medical Advisor at GEMS, South Africa's largest medical scheme, I combine clinical expertise 
-                  with advanced data science to drive evidence-based healthcare decisions. My work spans clinical 
-                  reviews, cost containment strategies, and stakeholder engagement across multiple departments.
-                </p>
-                <p style={{
-                  color: 'var(--text-secondary)',
-                  fontSize: '1.1rem',
-                  lineHeight: 1.8
-                }}>
-                  My research published in JMIR AI demonstrates the application of explainable machine learning 
-                  techniques to predict HIV viral suppression, contributing to the intersection of healthcare 
-                  and artificial intelligence.
+
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>
+                  I'm a <strong style={{ color: 'var(--text-primary)' }}>medical doctor turned data scientist</strong> with
+                  over 15 years of healthcare experience. My journey spans clinical medicine, laboratory work,
+                  transfusion medicine, and now the cutting edge of healthcare AI.
                 </p>
 
-                {/* Stats */}
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '2rem' }}>
+                  At <strong style={{ color: 'var(--accent-primary)' }}>Research 100</strong>, I build predictive models
+                  for chronic conditions, conduct Health Technology Assessments, and translate complex data into
+                  actionable healthcare strategies. My research on explainable AI for HIV viral suppression prediction
+                  is published in leading journals.
+                </p>
+
+                {/* Certifications */}
                 <div style={{
                   display: 'flex',
-                  gap: '3rem',
-                  marginTop: '3rem',
-                  paddingTop: '2rem',
-                  borderTop: '1px solid var(--border-subtle)'
+                  flexWrap: 'wrap',
+                  gap: '0.75rem',
+                  marginBottom: '2rem'
                 }}>
-                  {stats.map((stat, i) => (
-                    <div key={i}>
-                      <div style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '2rem',
-                        fontWeight: 600,
-                        color: 'var(--accent-primary)',
-                        marginBottom: '0.25rem'
-                      }}>{stat.value}</div>
-                      <div style={{
-                        fontSize: '0.875rem',
-                        color: 'var(--text-muted)',
-                        letterSpacing: '0.05em'
-                      }}>{stat.label}</div>
-                    </div>
+                  {['Responsible AI', 'Good Clinical Practice', 'Research Ethics', 'ISO 15189:2012'].map((cert, i) => (
+                    <span key={i} style={{
+                      padding: '0.5rem 1rem',
+                      background: 'rgba(16, 185, 129, 0.1)',
+                      border: '1px solid rgba(16, 185, 129, 0.3)',
+                      borderRadius: '50px',
+                      fontSize: '0.8rem',
+                      color: 'var(--accent-green)'
+                    }}>
+                      ✓ {cert}
+                    </span>
                   ))}
                 </div>
               </div>
 
-              {/* Right Column - Expertise */}
+              {/* Highlight Cards */}
               <div style={{
-                background: 'var(--bg-tertiary)',
-                padding: '3rem',
-                position: 'relative'
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '1rem'
               }}>
-                <div style={{
-                  position: 'absolute',
-                  top: '-1px',
-                  left: 0,
-                  width: '60px',
-                  height: '3px',
-                  background: 'var(--accent-gradient)'
-                }} />
-                
-                <h3 style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.75rem',
-                  marginBottom: '2rem',
-                  fontWeight: 500
-                }}>Core Expertise</h3>
+                {highlights.map((item, i) => (
+                  <div
+                    key={i}
+                    className="glass-card"
+                    style={{
+                      padding: '1.5rem',
+                      opacity: isInView ? 1 : 0,
+                      transform: isInView ? 'translateY(0)' : 'translateY(30px)',
+                      transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.1}s`
+                    }}
+                  >
+                    <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{item.icon}</div>
+                    <h3 style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      marginBottom: '0.5rem'
+                    }}>{item.title}</h3>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {expertise.map((item, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '1rem',
-                        padding: '1rem',
-                        background: 'rgba(34, 211, 238, 0.05)',
-                        borderLeft: '2px solid var(--accent-primary)',
-                        transition: 'all 0.3s var(--transition-smooth)'
-                      }}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span style={{ color: 'var(--text-primary)', fontSize: '0.95rem' }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
+    // ============ EXPERIENCE TIMELINE ============
+    const ExperienceSection = () => {
+      const [ref, isInView] = useInView();
 
-                {/* Technical Skills */}
-                <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <h4 style={{
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    color: 'var(--text-muted)',
-                    marginBottom: '1rem'
-                  }}>TECHNICAL STACK</h4>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    {['Python', 'R', 'SQL', 'Machine Learning', 'Explainable AI', 'Statistical Analysis'].map((skill, i) => (
-                      <span key={i} style={{
-                        padding: '0.5rem 1rem',
-                        background: 'rgba(34, 211, 238, 0.1)',
-                        border: '1px solid var(--border-accent)',
+      const experiences = [
+        {
+          period: 'Feb 2023 - Present',
+          title: 'Founder & Data Scientist',
+          company: 'Research 100',
+          description: 'Founded healthcare research startup. Build predictive models, conduct HTAs, and collaborate with practitioners to improve patient outcomes.',
+          tags: ['Machine Learning', 'Healthcare AI', 'ETL', 'Python', 'R'],
+          color: 'var(--accent-primary)'
+        },
+        {
+          period: 'July - Dec 2022',
+          title: 'ITAPS Research Mentee',
+          company: 'UCSF & SANBS',
+          description: 'International Traineeship in AIDS Prevention Studies. Scientific manuscript writing, statistical analysis, and HIV research.',
+          tags: ['Research', 'Stata', 'Scientific Writing', 'HIV Prevention'],
+          color: 'var(--accent-purple)'
+        },
+        {
+          period: 'Feb 2018 - Nov 2022',
+          title: 'Donor Medical Manager',
+          company: 'South African National Blood Service',
+          description: 'Led data-driven donor care programs. Managed team of 8, implemented BI dashboards, analyzed infectious disease patterns.',
+          tags: ['Data Analytics', 'Power BI', 'Team Leadership', 'Quality Assurance'],
+          color: 'var(--accent-green)'
+        },
+        {
+          period: 'Feb 2016 - Mar 2017',
+          title: 'Registrar - Anatomical Pathology',
+          company: 'University of Witwatersrand / NHLS',
+          description: 'Histological evaluation, molecular pathology, autopsy services. Academic teaching and research.',
+          tags: ['Pathology', 'Academia', 'Research', 'Diagnostics'],
+          color: 'var(--accent-orange)'
+        }
+      ];
+
+      return (
+        <section id="experience" ref={ref} style={{
+          padding: '8rem 0',
+          background: 'var(--bg-secondary)'
+        }}>
+          <div className="container">
+            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <div className="section-label" style={{ justifyContent: 'center' }}>Career Journey</div>
+              <h2 className="section-title">
+                Professional<br />
+                <span className="gradient-text">Experience</span>
+              </h2>
+            </div>
+
+            <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
+              {/* Timeline line */}
+              <div style={{
+                position: 'absolute',
+                left: '24px',
+                top: 0,
+                bottom: 0,
+                width: '2px',
+                background: 'linear-gradient(to bottom, var(--accent-primary), var(--accent-purple), var(--accent-green))'
+              }} />
+
+              {experiences.map((exp, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    gap: '2rem',
+                    marginBottom: '3rem',
+                    opacity: isInView ? 1 : 0,
+                    transform: isInView ? 'translateX(0)' : 'translateX(-30px)',
+                    transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.15}s`
+                  }}
+                >
+                  {/* Timeline dot */}
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    background: 'var(--bg-primary)',
+                    border: `3px solid ${exp.color}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    boxShadow: `0 0 20px ${exp.color}40`,
+                    zIndex: 1
+                  }}>
+                    <div style={{
+                      width: '16px',
+                      height: '16px',
+                      borderRadius: '50%',
+                      background: exp.color
+                    }} />
+                  </div>
+
+                  {/* Content */}
+                  <div className="glass-card" style={{ padding: '2rem', flex: 1 }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      marginBottom: '1rem',
+                      flexWrap: 'wrap',
+                      gap: '0.5rem'
+                    }}>
+                      <div>
+                        <h3 style={{
+                          fontFamily: 'var(--font-display)',
+                          fontSize: '1.25rem',
+                          fontWeight: 600,
+                          marginBottom: '0.25rem'
+                        }}>{exp.title}</h3>
+                        <div style={{ color: exp.color, fontWeight: 500 }}>{exp.company}</div>
+                      </div>
+                      <span style={{
                         fontSize: '0.8rem',
-                        color: 'var(--accent-primary)'
-                      }}>{skill}</span>
-                    ))}
+                        color: 'var(--text-muted)',
+                        background: 'rgba(148, 163, 184, 0.1)',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '50px'
+                      }}>{exp.period}</span>
+                    </div>
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', lineHeight: 1.6 }}>{exp.description}</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      {exp.tags.map((tag, j) => (
+                        <span key={j} style={{
+                          padding: '0.25rem 0.75rem',
+                          background: `${exp.color}15`,
+                          border: `1px solid ${exp.color}30`,
+                          borderRadius: '50px',
+                          fontSize: '0.75rem',
+                          color: exp.color
+                        }}>{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -663,51 +1191,66 @@
 
     // ============ RESEARCH SECTION ============
     const ResearchSection = () => {
+      const [ref, isInView] = useInView();
+
       const publications = [
         {
-          title: 'Predicting HIV Viral Suppression Using Explainable AI Techniques',
+          title: 'XAI-Driven Comparative Analysis of Machine Learning Models for Predicting HIV Viral Suppression',
           journal: 'JMIR AI',
-          year: '2025',
-          description: 'Application of explainable machine learning models to predict HIV viral suppression outcomes, contributing to personalized treatment strategies and improved patient care.',
-          tags: ['Machine Learning', 'Healthcare AI', 'HIV Research', 'Explainable AI'],
-          link: '#'
+          status: 'Published 2025',
+          description: 'Application of explainable machine learning models to predict HIV viral suppression outcomes in Ugandan patients, contributing to personalized treatment strategies.',
+          tags: ['Explainable AI', 'XGBoost', 'SHAP', 'HIV Research'],
+          link: '#',
+          featured: true
+        },
+        {
+          title: 'A Bibliometric Review of Predictive Modelling for Cervical Cancer Risk',
+          journal: 'Frontiers in Research Metrics and Analytics',
+          status: 'Accepted Oct 2024',
+          description: 'Comprehensive bibliometric analysis of machine learning approaches in cervical cancer risk prediction, mapping the research landscape and identifying future directions.',
+          tags: ['Bibliometrics', 'Cancer Research', 'Predictive Modeling'],
+          link: '#',
+          featured: false
         }
       ];
 
       return (
-        <section id="research" style={{
+        <section id="research" ref={ref} style={{
           padding: '8rem 0',
-          background: 'var(--bg-primary)',
           position: 'relative'
         }}>
           <div className="container">
-            <div className="section-label">Research & Publications</div>
+            <div className="section-label">Publications</div>
             <h2 className="section-title">
-              Published<br />
-              <span className="gradient-text">Work</span>
+              Research &<br />
+              <span className="gradient-text">Publications</span>
             </h2>
 
             <div style={{ marginTop: '4rem' }}>
               {publications.map((pub, i) => (
                 <div
                   key={i}
+                  className="glass-card"
                   style={{
-                    background: 'var(--bg-secondary)',
-                    padding: '3rem',
-                    position: 'relative',
+                    padding: '2.5rem',
                     marginBottom: '2rem',
-                    transition: 'all 0.4s var(--transition-smooth)'
+                    position: 'relative',
+                    overflow: 'hidden',
+                    opacity: isInView ? 1 : 0,
+                    transform: isInView ? 'translateY(0)' : 'translateY(30px)',
+                    transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.15}s`
                   }}
                 >
-                  {/* Decorative element */}
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '3px',
-                    background: 'var(--accent-gradient)'
-                  }} />
+                  {pub.featured && (
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: '4px',
+                      background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-purple))'
+                    }} />
+                  )}
 
                   <div style={{
                     display: 'flex',
@@ -718,55 +1261,54 @@
                     marginBottom: '1.5rem'
                   }}>
                     <div>
-                      <span style={{
-                        display: 'inline-block',
-                        padding: '0.25rem 0.75rem',
-                        background: 'rgba(245, 158, 11, 0.2)',
-                        color: 'var(--accent-warm)',
-                        fontSize: '0.75rem',
-                        fontWeight: 600,
-                        letterSpacing: '0.1em',
-                        marginBottom: '0.75rem'
-                      }}>PEER-REVIEWED</span>
+                      {pub.featured && (
+                        <span style={{
+                          display: 'inline-block',
+                          padding: '0.25rem 0.75rem',
+                          background: 'rgba(139, 92, 246, 0.2)',
+                          color: 'var(--accent-purple)',
+                          fontSize: '0.7rem',
+                          fontWeight: 600,
+                          letterSpacing: '0.1em',
+                          borderRadius: '50px',
+                          marginBottom: '0.75rem'
+                        }}>FEATURED PUBLICATION</span>
+                      )}
                       <h3 style={{
                         fontFamily: 'var(--font-display)',
-                        fontSize: '1.75rem',
-                        fontWeight: 500,
-                        lineHeight: 1.3
+                        fontSize: '1.5rem',
+                        fontWeight: 600,
+                        lineHeight: 1.3,
+                        maxWidth: '700px'
                       }}>{pub.title}</h3>
                     </div>
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>{pub.journal}</div>
-                      <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>{pub.year}</div>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>{pub.status}</div>
                     </div>
                   </div>
 
                   <p style={{
                     color: 'var(--text-secondary)',
                     lineHeight: 1.7,
-                    marginBottom: '2rem',
+                    marginBottom: '1.5rem',
                     maxWidth: '800px'
                   }}>{pub.description}</p>
 
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '0.5rem',
-                    marginBottom: '1.5rem'
-                  }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
                     {pub.tags.map((tag, j) => (
                       <span key={j} style={{
                         padding: '0.4rem 0.8rem',
-                        background: 'rgba(34, 211, 238, 0.1)',
+                        background: 'rgba(6, 182, 212, 0.1)',
                         border: '1px solid var(--border-accent)',
+                        borderRadius: '50px',
                         fontSize: '0.75rem',
-                        color: 'var(--accent-primary)',
-                        letterSpacing: '0.05em'
+                        color: 'var(--accent-primary)'
                       }}>{tag}</span>
                     ))}
                   </div>
 
-                  <a href={pub.link} className="btn btn-outline" style={{ marginTop: '1rem' }}>
+                  <a href={pub.link} className="btn btn-outline" style={{ padding: '0.75rem 1.5rem' }}>
                     Read Publication
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M7 17L17 7M17 7H7M17 7v10" />
@@ -775,252 +1317,226 @@
                 </div>
               ))}
             </div>
+
+            {/* Peer Review Section */}
+            <div style={{
+              marginTop: '4rem',
+              padding: '2rem',
+              background: 'rgba(139, 92, 246, 0.05)',
+              border: '1px solid rgba(139, 92, 246, 0.2)',
+              borderRadius: '16px'
+            }}>
+              <h3 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.25rem',
+                marginBottom: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem'
+              }}>
+                <span style={{ color: 'var(--accent-purple)' }}>📝</span>
+                Peer Reviewer
+              </h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                <span style={{
+                  padding: '0.75rem 1.25rem',
+                  background: 'rgba(139, 92, 246, 0.1)',
+                  border: '1px solid rgba(139, 92, 246, 0.3)',
+                  borderRadius: '8px',
+                  fontSize: '0.9rem'
+                }}>Digital Health (Sage Journals)</span>
+                <span style={{
+                  padding: '0.75rem 1.25rem',
+                  background: 'rgba(139, 92, 246, 0.1)',
+                  border: '1px solid rgba(139, 92, 246, 0.3)',
+                  borderRadius: '8px',
+                  fontSize: '0.9rem'
+                }}>Translational Cancer Research</span>
+              </div>
+            </div>
           </div>
         </section>
       );
     };
 
-    // ============ PROJECTS SECTION ============
-    const ProjectsSection = () => {
-      const projects = [
+    // ============ SKILLS SECTION ============
+    const SkillsSection = () => {
+      const [ref, isInView] = useInView();
+
+      const skillCategories = [
         {
-          title: 'Diabetes Risk Factor Clustering',
-          category: 'Healthcare Analytics',
-          description: 'Identified distinct population clusters based on health and demographic parameters to develop tailored interventions for diabetes management and prevention.',
-          image: 'data:image/svg+xml,' + encodeURIComponent(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
-              <rect fill="#111920" width="600" height="400"/>
-              <g fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.3">
-                <circle cx="150" cy="200" r="80"/>
-                <circle cx="300" cy="180" r="60"/>
-                <circle cx="450" cy="220" r="90"/>
-                <circle cx="200" cy="300" r="50"/>
-                <circle cx="400" cy="120" r="70"/>
-              </g>
-              <g fill="#22d3ee" opacity="0.6">
-                <circle cx="150" cy="200" r="4"/>
-                <circle cx="165" cy="185" r="3"/>
-                <circle cx="140" cy="215" r="3"/>
-                <circle cx="300" cy="180" r="4"/>
-                <circle cx="315" cy="165" r="3"/>
-                <circle cx="450" cy="220" r="4"/>
-                <circle cx="435" cy="235" r="3"/>
-                <circle cx="200" cy="300" r="4"/>
-                <circle cx="400" cy="120" r="4"/>
-              </g>
-            </svg>
-          `),
-          tags: ['Hierarchical Clustering', 'R', 'Population Health'],
-          featured: true
+          title: 'Technical Skills',
+          icon: '💻',
+          skills: [
+            { name: 'Python', level: 3, color: 'var(--accent-primary)' },
+            { name: 'R', level: 3, color: 'var(--accent-primary)' },
+            { name: 'SQL', level: 3, color: 'var(--accent-primary)' },
+            { name: 'Stata', level: 5, color: 'var(--accent-primary)' },
+            { name: 'Machine Learning', level: 3, color: 'var(--accent-purple)' }
+          ]
         },
         {
-          title: 'Consumer Behaviour Analysis',
-          category: 'Machine Learning',
-          description: 'Applied Random Forest algorithms to understand and predict consumer purchasing patterns for certified rice products.',
-          image: 'data:image/svg+xml,' + encodeURIComponent(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
-              <rect fill="#111920" width="600" height="400"/>
-              <g stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.4">
-                <line x1="100" y1="350" x2="100" y2="180"/>
-                <line x1="180" y1="350" x2="180" y2="120"/>
-                <line x1="260" y1="350" x2="260" y2="200"/>
-                <line x1="340" y1="350" x2="340" y2="80"/>
-                <line x1="420" y1="350" x2="420" y2="150"/>
-                <line x1="500" y1="350" x2="500" y2="100"/>
-              </g>
-              <g fill="#22d3ee">
-                <rect x="90" y="180" width="20" height="170" opacity="0.7"/>
-                <rect x="170" y="120" width="20" height="230" opacity="0.7"/>
-                <rect x="250" y="200" width="20" height="150" opacity="0.7"/>
-                <rect x="330" y="80" width="20" height="270" opacity="0.7"/>
-                <rect x="410" y="150" width="20" height="200" opacity="0.7"/>
-                <rect x="490" y="100" width="20" height="250" opacity="0.7"/>
-              </g>
-            </svg>
-          `),
-          tags: ['Random Forest', 'Python', 'Consumer Analytics'],
-          featured: false
-        },
-        {
-          title: 'Customer Segmentation',
-          category: 'Unsupervised Learning',
-          description: 'Implemented PCA and K-Means clustering techniques to segment customers for targeted marketing strategies.',
-          image: 'data:image/svg+xml,' + encodeURIComponent(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
-              <rect fill="#111920" width="600" height="400"/>
-              <g fill="none" stroke-width="1.5">
-                <circle cx="180" cy="180" r="60" stroke="#f59e0b" opacity="0.5"/>
-                <circle cx="400" cy="150" r="70" stroke="#22d3ee" opacity="0.5"/>
-                <circle cx="300" cy="280" r="55" stroke="#06b6d4" opacity="0.5"/>
-              </g>
-              <g fill="#f59e0b" opacity="0.8">
-                <circle cx="160" cy="160" r="5"/>
-                <circle cx="190" cy="195" r="4"/>
-                <circle cx="175" cy="175" r="6"/>
-                <circle cx="200" cy="165" r="4"/>
-              </g>
-              <g fill="#22d3ee" opacity="0.8">
-                <circle cx="380" cy="140" r="5"/>
-                <circle cx="420" cy="160" r="6"/>
-                <circle cx="395" cy="135" r="4"/>
-                <circle cx="410" cy="170" r="5"/>
-              </g>
-              <g fill="#06b6d4" opacity="0.8">
-                <circle cx="290" cy="270" r="5"/>
-                <circle cx="315" cy="290" r="4"/>
-                <circle cx="305" cy="265" r="6"/>
-                <circle cx="280" cy="295" r="4"/>
-              </g>
-            </svg>
-          `),
-          tags: ['PCA', 'K-Means', 'Python'],
-          featured: false
+          title: 'Domain Expertise',
+          icon: '🏥',
+          skills: [
+            { name: 'Clinical Medicine', level: 10, color: 'var(--accent-green)' },
+            { name: 'Statistical Analysis', level: 5, color: 'var(--accent-green)' },
+            { name: 'Clinical Research', level: 5, color: 'var(--accent-green)' },
+            { name: 'Epidemiology', level: 5, color: 'var(--accent-green)' },
+            { name: 'Scientific Writing', level: 10, color: 'var(--accent-green)' }
+          ]
         }
       ];
 
+      const tools = [
+        'Jupyter', 'VS Code', 'PyTorch', 'Power BI', 'Tableau',
+        'LaTeX', 'RStudio', 'Google Colab', 'SharePoint', 'Jira'
+      ];
+
       return (
-        <section id="projects" style={{
+        <section id="skills" ref={ref} style={{
           padding: '8rem 0',
-          background: 'var(--bg-secondary)',
-          position: 'relative'
+          background: 'var(--bg-secondary)'
         }}>
           <div className="container">
-            <div className="section-label">Portfolio</div>
-            <h2 className="section-title">
-              Featured<br />
-              <span className="gradient-text">Projects</span>
-            </h2>
+            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <div className="section-label" style={{ justifyContent: 'center' }}>Capabilities</div>
+              <h2 className="section-title">
+                Skills &<br />
+                <span className="gradient-text">Expertise</span>
+              </h2>
+            </div>
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
               gap: '2rem',
-              marginTop: '4rem'
+              marginBottom: '4rem'
             }}>
-              {projects.map((project, i) => (
+              {skillCategories.map((category, i) => (
                 <div
                   key={i}
+                  className="glass-card"
                   style={{
-                    background: 'var(--bg-primary)',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    transition: 'all 0.4s var(--transition-smooth)',
-                    cursor: 'pointer'
+                    padding: '2rem',
+                    opacity: isInView ? 1 : 0,
+                    transform: isInView ? 'translateY(0)' : 'translateY(30px)',
+                    transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.1}s`
                   }}
-                  className="project-card"
                 >
-                  {/* Project Image */}
-                  <div style={{
-                    height: '200px',
-                    overflow: 'hidden',
-                    position: 'relative'
+                  <h3 style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1.25rem',
+                    marginBottom: '2rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem'
                   }}>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        transition: 'transform 0.6s var(--transition-smooth)'
-                      }}
+                    <span>{category.icon}</span>
+                    {category.title}
+                  </h3>
+                  {category.skills.map((skill, j) => (
+                    <SkillBar
+                      key={j}
+                      skill={skill.name}
+                      level={skill.level}
+                      color={skill.color}
+                      delay={j * 100}
                     />
-                    {project.featured && (
-                      <div style={{
-                        position: 'absolute',
-                        top: '1rem',
-                        right: '1rem',
-                        padding: '0.25rem 0.75rem',
-                        background: 'var(--accent-warm)',
-                        color: 'var(--bg-primary)',
-                        fontSize: '0.7rem',
-                        fontWeight: 700,
-                        letterSpacing: '0.1em'
-                      }}>FEATURED</div>
-                    )}
-                  </div>
-
-                  {/* Project Content */}
-                  <div style={{ padding: '2rem' }}>
-                    <div style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      letterSpacing: '0.1em',
-                      color: 'var(--accent-primary)',
-                      marginBottom: '0.75rem'
-                    }}>{project.category.toUpperCase()}</div>
-
-                    <h3 style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '1.5rem',
-                      fontWeight: 500,
-                      marginBottom: '1rem',
-                      lineHeight: 1.3
-                    }}>{project.title}</h3>
-
-                    <p style={{
-                      color: 'var(--text-secondary)',
-                      fontSize: '0.95rem',
-                      lineHeight: 1.6,
-                      marginBottom: '1.5rem'
-                    }}>{project.description}</p>
-
-                    <div style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '0.5rem'
-                    }}>
-                      {project.tags.map((tag, j) => (
-                        <span key={j} style={{
-                          padding: '0.3rem 0.6rem',
-                          background: 'rgba(34, 211, 238, 0.1)',
-                          fontSize: '0.7rem',
-                          color: 'var(--text-muted)',
-                          letterSpacing: '0.05em'
-                        }}>{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Hover Overlay */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: '3px',
-                    background: 'var(--accent-gradient)',
-                    transform: 'scaleX(0)',
-                    transformOrigin: 'left',
-                    transition: 'transform 0.4s var(--transition-smooth)'
-                  }} className="hover-line" />
+                  ))}
                 </div>
               ))}
             </div>
-          </div>
 
-          <style>{`
-            .project-card:hover {
-              transform: translateY(-8px);
-              box-shadow: var(--shadow-glow);
-            }
-            .project-card:hover img {
-              transform: scale(1.05);
-            }
-            .project-card:hover .hover-line {
-              transform: scaleX(1) !important;
-            }
-          `}</style>
+            {/* Tools & Technologies */}
+            <div style={{ textAlign: 'center' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.25rem',
+                marginBottom: '1.5rem',
+                color: 'var(--text-secondary)'
+              }}>Tools & Technologies</h3>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '1rem'
+              }}>
+                {tools.map((tool, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      padding: '0.75rem 1.5rem',
+                      background: 'var(--bg-primary)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '50px',
+                      fontSize: '0.9rem',
+                      transition: 'all 0.3s ease',
+                      cursor: 'default',
+                      opacity: isInView ? 1 : 0,
+                      transform: isInView ? 'translateY(0)' : 'translateY(20px)',
+                      transitionDelay: `${i * 50}ms`
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.borderColor = 'var(--accent-primary)';
+                      e.target.style.color = 'var(--accent-primary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.borderColor = 'var(--border-subtle)';
+                      e.target.style.color = 'var(--text-primary)';
+                    }}
+                  >{tool}</span>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
       );
     };
 
     // ============ CONTACT SECTION ============
     const ContactSection = () => {
+      const [ref, isInView] = useInView();
+
+      const contactMethods = [
+        {
+          icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          ),
+          label: 'Email',
+          value: 'francisngema@gmail.com',
+          href: 'mailto:francisngema@gmail.com'
+        },
+        {
+          icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          ),
+          label: 'LinkedIn',
+          value: 'Connect with me',
+          href: 'https://linkedin.com/in/francisngema'
+        },
+        {
+          icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          ),
+          label: 'GitHub',
+          value: 'View my code',
+          href: 'https://github.com/Phuzamanzegiza'
+        }
+      ];
+
       return (
-        <section id="contact" style={{
+        <section id="contact" ref={ref} style={{
           padding: '8rem 0',
-          background: 'var(--bg-primary)',
           position: 'relative'
         }}>
           <div className="container">
@@ -1030,11 +1546,15 @@
               gap: '4rem',
               alignItems: 'center'
             }}>
-              <div>
+              <div style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? 'translateX(0)' : 'translateX(-40px)',
+                transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}>
                 <div className="section-label">Get in Touch</div>
                 <h2 className="section-title">
-                  Let's<br />
-                  <span className="gradient-text">Connect</span>
+                  Let's Build<br />
+                  <span className="gradient-text">Together</span>
                 </h2>
                 <p style={{
                   color: 'var(--text-secondary)',
@@ -1043,161 +1563,112 @@
                   marginBottom: '2rem',
                   maxWidth: '500px'
                 }}>
-                  Whether you're interested in healthcare analytics collaboration, research opportunities, 
-                  or just want to discuss the intersection of medicine and data science, I'd love to hear from you.
+                  Interested in healthcare AI collaboration, research opportunities,
+                  or leveraging data science for better health outcomes? I'd love to hear from you.
                 </p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  <a
-                    href="mailto:contact@francisngema.com"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '1rem',
-                      color: 'var(--text-primary)',
-                      textDecoration: 'none',
-                      transition: 'color 0.3s'
-                    }}
-                  >
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'rgba(34, 211, 238, 0.1)',
-                      border: '1px solid var(--border-accent)'
-                    }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>EMAIL</div>
-                      <div>contact@francisngema.com</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="https://linkedin.com/in/francisngema"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '1rem',
-                      color: 'var(--text-primary)',
-                      textDecoration: 'none',
-                      transition: 'color 0.3s'
-                    }}
-                  >
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'rgba(34, 211, 238, 0.1)',
-                      border: '1px solid var(--border-accent)'
-                    }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                        <rect x="2" y="9" width="4" height="12"/>
-                        <circle cx="4" cy="4" r="2"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>LINKEDIN</div>
-                      <div>linkedin.com/in/francisngema</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="https://github.com/francisngema"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '1rem',
-                      color: 'var(--text-primary)',
-                      textDecoration: 'none',
-                      transition: 'color 0.3s'
-                    }}
-                  >
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'rgba(34, 211, 238, 0.1)',
-                      border: '1px solid var(--border-accent)'
-                    }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>GITHUB</div>
-                      <div>github.com/francisngema</div>
-                    </div>
-                  </a>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {contactMethods.map((method, i) => (
+                    <a
+                      key={i}
+                      href={method.href}
+                      target={method.href.startsWith('http') ? '_blank' : undefined}
+                      rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="glass-card"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        padding: '1.25rem 1.5rem',
+                        textDecoration: 'none',
+                        color: 'var(--text-primary)',
+                        opacity: isInView ? 1 : 0,
+                        transform: isInView ? 'translateX(0)' : 'translateX(-20px)',
+                        transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.1}s`
+                      }}
+                    >
+                      <div style={{
+                        width: '48px',
+                        height: '48px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'rgba(6, 182, 212, 0.1)',
+                        border: '1px solid var(--border-accent)',
+                        borderRadius: '12px',
+                        color: 'var(--accent-primary)'
+                      }}>
+                        {method.icon}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
+                          {method.label}
+                        </div>
+                        <div style={{ fontWeight: 500 }}>{method.value}</div>
+                      </div>
+                    </a>
+                  ))}
                 </div>
               </div>
 
-              {/* Decorative Card */}
-              <div style={{
-                background: 'var(--bg-secondary)',
-                padding: '3rem',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
+              {/* CTA Card */}
+              <div
+                className="glass-card"
+                style={{
+                  padding: '3rem',
+                  textAlign: 'center',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  opacity: isInView ? 1 : 0,
+                  transform: isInView ? 'translateY(0)' : 'translateY(40px)',
+                  transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s'
+                }}
+              >
                 <div style={{
                   position: 'absolute',
                   top: '-50%',
                   right: '-50%',
                   width: '100%',
                   height: '100%',
-                  background: 'radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 60%)',
+                  background: 'radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 60%)',
                   transform: 'rotate(-45deg)'
                 }} />
-                
+
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <div style={{
+                    width: '80px',
+                    height: '80px',
+                    margin: '0 auto 1.5rem',
+                    background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-purple))',
+                    borderRadius: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '2.5rem'
+                  }}>🚀</div>
+
+                  <h3 style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.5rem',
-                    fontWeight: 500,
-                    marginBottom: '1.5rem'
-                  }}>Current Focus</div>
-                  
+                    fontWeight: 600,
+                    marginBottom: '1rem'
+                  }}>Open to Opportunities</h3>
+
                   <p style={{
                     color: 'var(--text-secondary)',
-                    lineHeight: 1.7,
-                    marginBottom: '2rem'
+                    marginBottom: '2rem',
+                    lineHeight: 1.6
                   }}>
-                    Working on healthcare cost containment strategies, clinical appropriateness reviews, 
-                    and developing ML-powered analytics dashboards at GEMS.
+                    Looking for roles in healthcare data science, medical AI research,
+                    or clinical informatics leadership.
                   </p>
 
-                  <div style={{
-                    padding: '1.5rem',
-                    background: 'rgba(34, 211, 238, 0.1)',
-                    borderLeft: '3px solid var(--accent-primary)'
-                  }}>
-                    <div style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      letterSpacing: '0.1em',
-                      color: 'var(--accent-primary)',
-                      marginBottom: '0.5rem'
-                    }}>CURRENT ROLE</div>
-                    <div style={{ fontWeight: 500 }}>Medical Advisor</div>
-                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                      GEMS - Government Employees Medical Scheme
-                    </div>
-                  </div>
+                  <a href="/Francis_Ngema_CV_March_2025.pdf" target="_blank" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                    Download Full CV
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1211,8 +1682,8 @@
       return (
         <footer style={{
           padding: '3rem 0',
-          background: 'var(--bg-secondary)',
-          borderTop: '1px solid var(--border-subtle)'
+          borderTop: '1px solid var(--border-subtle)',
+          background: 'var(--bg-secondary)'
         }}>
           <div className="container" style={{
             display: 'flex',
@@ -1224,15 +1695,30 @@
             <div style={{
               fontFamily: 'var(--font-display)',
               fontSize: '1.25rem',
-              fontWeight: 600
+              fontWeight: 700
             }}>
               FN<span style={{ color: 'var(--accent-primary)' }}>.</span>
             </div>
-            <div style={{
-              color: 'var(--text-muted)',
-              fontSize: '0.875rem'
-            }}>
-              © 2026 Dr Francis Ngema. All rights reserved.
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+              © 2026 Dr Francis Ngema. Built with passion for healthcare innovation.
+            </div>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              {['LinkedIn', 'GitHub', 'Email'].map((link, i) => (
+                <a
+                  key={i}
+                  href={link === 'Email' ? 'mailto:francisngema@gmail.com' : `https://${link.toLowerCase()}.com/${link === 'GitHub' ? 'Phuzamanzegiza' : 'francisngema'}`}
+                  style={{
+                    color: 'var(--text-muted)',
+                    textDecoration: 'none',
+                    fontSize: '0.875rem',
+                    transition: 'color 0.3s'
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'}
+                  onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
+                >
+                  {link}
+                </a>
+              ))}
             </div>
           </div>
         </footer>
@@ -1245,7 +1731,7 @@
 
       useEffect(() => {
         const handleScroll = () => {
-          const sections = ['home', 'about', 'research', 'projects', 'contact'];
+          const sections = ['home', 'about', 'experience', 'research', 'skills', 'contact'];
           const scrollPos = window.scrollY + 200;
 
           for (const section of sections) {
@@ -1267,34 +1753,29 @@
 
       return (
         <>
+          <ParticleField />
           <Navigation activeSection={activeSection} />
           <HeroSection />
           <AboutSection />
+          <ExperienceSection />
           <ResearchSection />
-          <ProjectsSection />
+          <SkillsSection />
           <ContactSection />
           <Footer />
 
-          {/* Global responsive styles */}
           <style>{`
-            @media (max-width: 768px) {
-              .desktop-nav {
-                display: none !important;
-              }
-              .mobile-menu-btn {
-                display: block !important;
-              }
-              .container {
-                padding: 0 1.5rem;
-              }
-              .section-title {
-                font-size: 2.5rem !important;
-              }
+            @media (max-width: 900px) {
+              .desktop-nav { display: none !important; }
+              .mobile-menu-btn { display: block !important; }
+              .hero-grid { grid-template-columns: 1fr !important; }
+              .hero-visual { display: none !important; }
             }
-            @media (min-width: 769px) {
-              .mobile-nav {
-                display: none !important;
-              }
+            @media (min-width: 901px) {
+              .mobile-nav { display: none !important; }
+            }
+            @media (max-width: 500px) {
+              .container { padding: 0 1rem; }
+              .section-title { font-size: 2rem !important; }
             }
           `}</style>
         </>
