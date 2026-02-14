@@ -4,7 +4,7 @@ A modern, dynamic portfolio website showcasing my work as a Medical Doctor and D
 
 ## Live Site
 
-[View Portfolio](https://portfolio-francisngema.netlify.app) *(update with your actual Netlify URL)*
+[View Portfolio](https://francisngema.netlify.app) *(update with your actual Netlify URL)*
 
 ## Features
 
